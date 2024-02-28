@@ -1,5 +1,5 @@
 import math
-import sys
+import yaml
 
 from geometry_msgs.msg import TransformStamped
 
@@ -76,7 +76,10 @@ class StaticFramePublisher(Node):
 
 
 def main():
-    args = ['cam_frame', 0, -0.045, 0.085, -math.pi/2, 0, 0] # child_frame_name x y z roll pitch yaw
+    from ament_index_python.packages import get_package_share_directory
+    transform_config_file = get_package_share_directory('cam_config') + '/config/frame_transform.yaml'
+    data = yaml.safe_load(open(transform_config_file))
+    args = list(data.values()) # child_frame_name x y z roll pitch yaw
 
     rclpy.init()
     node = StaticFramePublisher(args)
@@ -86,6 +89,3 @@ def main():
         pass
 
     rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()
