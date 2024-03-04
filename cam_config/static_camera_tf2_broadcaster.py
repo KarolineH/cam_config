@@ -79,7 +79,7 @@ def main():
     from ament_index_python.packages import get_package_share_directory
     transform_config_file = get_package_share_directory('cam_config') + '/config/frame_transform.yaml'
     data = yaml.safe_load(open(transform_config_file))
-    args = list(data.values()) # child_frame_name x y z roll pitch yaw
+    args = [data['frame_id'], data['x_translation'], data['y_translation'], data['z_translation'], data['theta_x'], data['theta_y'], data['theta_z']] # child_frame_name, x, y, z, orientation as extrinsic euler angels in x,y,z, order
 
     rclpy.init()
     node = StaticFramePublisher(args)
