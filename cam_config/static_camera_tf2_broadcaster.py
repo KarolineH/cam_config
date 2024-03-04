@@ -48,7 +48,7 @@ class StaticFramePublisher(Node):
     """
 
     def __init__(self, transformation):
-        super().__init__('static_turtle_tf2_broadcaster')
+        super().__init__('static_camera_tf2_broadcaster')
 
         self.tf_static_broadcaster = StaticTransformBroadcaster(self)
 
